@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+		</style>
+	</head>
+	<body>
+
+        <div style="background-color:grey;width:1000px;height:230px;">
+            <h3>length</h3>
+            <input type="text", id="inp_length", onchange="updateCube(cube)"/> 
+            <h3>width</h3>
+            <input type="text", id="inp_width", onchange="updateCube(cube)"/> 
+            <h3>length</h3>
+            <input type="text", id="inp_height", onchange="updateCube(cube)"/> 
+        </div>
+
+		<script src="Three.js"></script>    
+		<script>
+
+            document.getElementById("inp_length").defaultValue = "1";
+            document.getElementById("inp_width").defaultValue = "1";
+            document.getElementById("inp_height").defaultValue = "1";
+
+            const scene = new THREE.Scene();
+			const camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			const renderer = new THREE.WebGLRenderer();
+            
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+
+			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+			var material = new THREE.MeshBasicMaterial( { color: 696969 } );
+			var cube = new THREE.Mesh( geometry, material );
+			scene.add( cube );
+
+			camera.position.z = 5;
+
+            function updateCube(cube) {
+                
+                length = document.getElementById("inp_length").value;
+                width = document.getElementById("inp_width").value;
+                height = document.getElementById("inp_height").value;
+
+                cube.scale.x = length 
+                cube.scale.y = width
+                cube.scale.z = height
+
+                scene.add(cube)
+         
+            }
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				cube.rotation.x += 0.01;
+				cube.rotation.y += 0.01;
+
+				renderer.render( scene, camera );
+			};
+
+            
+			animate();
+		</script>
+	</body>
+</html>
